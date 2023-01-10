@@ -1,19 +1,20 @@
 from fastapi import FastAPI
 from dotenv import dotenv_values
 from pymongo import MongoClient
+from neo4j import GraphDatabase, basic_auth
 
 from router_artist import router as artist_router
 from router_movie import router as movies_router
 
 config = dotenv_values(".env")
 
-DB_SWITCH = "Paco"
-
 app = FastAPI()
 
 @app.on_event("startup")
 def startup_db_client():
-    match DB_SWITCH:
+    
+    print("Connecting to MongoDB database...")
+    match config["MONGO_DB_SWITCH"]:
         case "Local":
             app.mongodb_client = MongoClient(config["LOCAL_URI"])
             app.database = app.mongodb_client[config["LOCAL_DB_NAME"]]
@@ -37,8 +38,17 @@ def startup_db_client():
             app.include_router(movies_router, tags=["movies"], prefix="/movie")
 
             print("Connected to the Atlas Paco's MongoDB database!")
+    
+    print("Connecting to Neo4j database...")
+
+    app.neo_client = GraphDatabase.driver(
+    config["NEO4J_URI"],
+    auth=basic_auth(config["NEO4J_USER"], config["NEO4J_PASSWORD"]))
+
+    print("Connected to Neo4j database!")
 
 
 @app.on_event("shutdown")
 def shutdown_db_client():
     app.mongodb_client.close()
+    app.neo_client.close()
