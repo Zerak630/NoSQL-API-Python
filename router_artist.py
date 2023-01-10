@@ -2,7 +2,7 @@ from fastapi import APIRouter, Body, Request, Response, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from typing import List
 
-from models import Artist, ArtistUpdate
+from model_artist import Artist, ArtistUpdate
 
 router = APIRouter()
 
