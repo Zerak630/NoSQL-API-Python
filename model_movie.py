@@ -7,52 +7,52 @@ from pydantic import BaseModel, Field
 
 
 class Award(BaseModel):
-    nominations: Optional[int]
-    text: Optional[str]
-    wins: Optional[int]
+    nominations: int | None
+    text: str | None
+    wins: int | None
 
     class Config:
         orm_mode = True
 
 
 class Imdb(BaseModel):
-    id: Optional[int]
-    rating: Optional[float]
-    votes: Optional[int]
+    id: int | None
+    rating: float | None
+    votes: int | None
 
     class Config:
         orm_mode = True
 
 
 class Critic(BaseModel):
-    meter: Optional[int]
-    numReviews: Optional[int]
-    rating: Optional[float]
+    meter: int | None
+    numReviews: int | None
+    rating: float | None
 
     class Config:
         orm_mode = True
 
 
 class Viewer(BaseModel):
-    meter: Optional[int]
-    numReviews: Optional[int]
-    rating: Optional[float]
+    meter: int | None
+    numReviews: int | None
+    rating: float | None
 
     class Config:
         orm_mode = True
 
 
 class Tomatoes(BaseModel):
-    boxOffice: Optional[str]
-    consensus: Optional[str]
-    critic: Optional[Union[Critic, None]]
-    dvd: Optional[datetime]
-    fresh: Optional[int]
-    lastUpdated: Optional[datetime]
-    production: Optional[str]
-    rotten: Optional[int]
-    viewer: Optional[Union[Viewer, None]]
-    website: Optional[str]
+    boxOffice: str | None
+    consensus: str | None
+    critic: Critic | None
+    dvd: datetime | None
+    fresh: int | None
+    lastUpdated: datetime | None
+    production: str | None
+    rotten: int | None
+    viewer: Viewer | None
+    website: str | None
 
     class Config:
         orm_mode = True
@@ -76,28 +76,28 @@ class ObjId(ObjectId):
 
 
 class Movie(BaseModel):
-    id: Union[ObjId, None] = Field(alias="_id")
-    awards: Optional[Union[Award, None]]
-    cast: Optional[list[str]]
-    countries: Optional[list[str]]
-    directors: Optional[list[str]]
-    fullplot: Optional[str]
-    plot: Optional[str]
-    genres: Optional[list[str]]
-    imdb: Optional[Union[Imdb, None]]
-    languages: Optional[list[str]]
-    lastupdated: Optional[str]
-    metacritic: Optional[int]
-    num_mflix_comments: Optional[int]
-    poster: Optional[str]
-    rated: Optional[str]
-    released: Optional[datetime]
-    runtime: Optional[int]
-    title: Optional[str]
-    tomatoes: Optional[Union[Tomatoes, None]]
-    type: Optional[str]
-    writers: Optional[list[str]]
-    year: Optional[int]
+    id: ObjId | None = Field(alias="_id")
+    awards: Award | None
+    cast: list[str] | None
+    countries: list[str] | None
+    directors: list[str] | None
+    fullplot: str | None
+    plot: str | None
+    genres: list[str] | None
+    imdb: Imdb | None
+    languages: list[str] | None
+    lastupdated: str | None
+    metacritic: int | None
+    num_mflix_comments: int | None
+    poster: str | None
+    rated: str | None
+    released: datetime | None
+    runtime: int | None
+    title: str | None
+    tomatoes: Tomatoes | None
+    type: str | None
+    writers: list[str] | None
+    year: int | None
 
     class Config:
         orm_mode = True
@@ -171,3 +171,27 @@ class Movie(BaseModel):
             },
             "num_mflix_comments": 0
         }
+
+
+class MovieUpdate(BaseModel):
+    awards: Award | None
+    cast: list[str] | None
+    countries: list[str] | None
+    directors: list[str] | None
+    fullplot: str | None
+    plot: str | None
+    genres: list[str] | None
+    imdb: Imdb | None
+    languages: list[str] | None
+    lastupdated: str | None
+    metacritic: int | None
+    num_mflix_comments: int | None
+    poster: str | None
+    rated: str | None
+    released: datetime | None
+    runtime: int | None
+    title: str | None
+    tomatoes: Tomatoes | None
+    type: str | None
+    writers: list[str] | None
+    year: int | None
