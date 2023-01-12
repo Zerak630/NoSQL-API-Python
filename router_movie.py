@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter, Body, Request, Response, HTTPException, status
+from fastapi import APIRouter, Body, Request, HTTPException, status
 
 from model_movie import Movie, MovieUpdate
 

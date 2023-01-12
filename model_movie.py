@@ -1,8 +1,7 @@
 from datetime import datetime
-import uuid
+
 from bson import ObjectId
 from bson.errors import InvalidId
-from typing import Optional, Union
 from pydantic import BaseModel, Field
 
 
